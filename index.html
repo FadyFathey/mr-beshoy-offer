@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عرض سعر — منصة كورسات أونلاين</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1c1a17;
+    --paper:#faf7f0;
+    --paper-2:#f2ede1;
+    --gold:#a9813f;
+    --gold-deep:#7a5a24;
+    --gold-line: rgba(169,129,63,.35);
+    --muted:#7a746a;
+    --white:#fffdf9;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background: linear-gradient(180deg, #efe9db 0%, #e7e0cf 100%);
+    font-family:'Tajawal', sans-serif;
+    color:var(--ink);
+    padding: 48px 16px;
+    line-height:1.75;
+  }
+
+  .sheet{
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 30px 60px -20px rgba(30,20,5,.35);
+    position:relative;
+    overflow:hidden;
+    border: 1px solid rgba(169,129,63,.25);
+  }
+
+  /* signature element: folded gold corner ribbon */
+  .ribbon{
+    position:absolute;
+    top:0; left:0;
+    width:0; height:0;
+    border-top: 130px solid var(--gold-deep);
+    border-right: 130px solid transparent;
+    z-index:1;
+  }
+  .ribbon span{
+    position:absolute;
+    top:-108px; left:14px;
+    color:#f2e6cf;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.14em;
+    transform: rotate(-45deg);
+    font-family:'Space Mono', monospace;
+  }
+
+  .band{
+    background: var(--ink);
+    color: var(--white);
+    padding: 42px 56px 34px;
+    position:relative;
+  }
+  .band::after{
+    content:"";
+    position:absolute;
+    right:0; bottom:0; left:0;
+    height:4px;
+    background: linear-gradient(90deg, var(--gold) 0%, #e8cf9a 50%, var(--gold) 100%);
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    font-size:12px;
+    letter-spacing:.24em;
+    color:#e8cf9a;
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  .band h1{
+    margin:0;
+    font-size:34px;
+    font-weight:900;
+  }
+  .band p.sub{
+    margin:8px 0 0;
+    color:#cfc6b4;
+    font-size:16px;
+    font-weight:400;
+  }
+
+  .meta{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--gold-line);
+  }
+  .meta div{
+    padding: 18px 56px;
+    border-left: 1px solid var(--gold-line);
+  }
+  .meta div:last-child{border-left:none;}
+  .meta .label{
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:.05em;
+    margin:0 0 4px;
+  }
+  .meta .value{
+    font-size:16px;
+    font-weight:700;
+    color:var(--gold-deep);
+    margin:0;
+  }
+
+  .content{ padding: 40px 56px 12px; }
+
+  h2.section{
+    font-size:20px;
+    font-weight:900;
+    color:var(--gold-deep);
+    margin: 34px 0 16px;
+    padding-bottom:10px;
+    border-bottom: 2px solid var(--gold-line);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  h2.section::before{
+    content:"";
+    width:8px; height:8px;
+    background:var(--gold);
+    transform: rotate(45deg);
+    display:inline-block;
+    flex-shrink:0;
+  }
+
+  p.body-text{
+    margin: 0 0 14px;
+    font-size:15.5px;
+    color:#3a352c;
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin: 6px 0 8px;
+    font-size:14.5px;
+  }
+  thead th{
+    background: var(--ink);
+    color: var(--white);
+    font-weight:700;
+    padding: 12px 14px;
+    text-align:center;
+  }
+  thead th:first-child{ border-top-right-radius:6px; }
+  thead th:last-child{ border-top-left-radius:6px; }
+
+  tbody td{
+    padding: 14px 14px;
+    border-bottom: 1px solid #e7dfcb;
+    vertical-align:middle;
+  }
+  tbody tr:nth-child(even){ background: var(--paper-2); }
+  tbody tr:last-child td{ border-bottom:none; }
+
+  td.item{ font-weight:700; color:var(--ink); width:24%; }
+  td.desc{ color:#4c4636; }
+  td.price{
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    color:var(--gold-deep);
+    text-align:center;
+    white-space:nowrap;
+    width:20%;
+  }
+  td.center{ text-align:center; }
+
+  .bunny-table td.free{
+    color:var(--gold-deep);
+    font-weight:700;
+  }
+
+  .note-star{
+    font-size:12.5px;
+    color:var(--muted);
+    margin: 4px 0 22px;
+    line-height:1.6;
+  }
+
+  .example-box{
+    background: var(--paper-2);
+    border-right: 3px solid var(--gold);
+    padding: 14px 18px;
+    font-size:14.5px;
+    color:#4c4636;
+    margin: 4px 0 24px;
+  }
+
+  .totals{
+    margin: 8px 0 30px;
+    border: 1px solid var(--gold-line);
+  }
+  .totals .row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 18px 22px;
+    gap: 20px;
+  }
+  .totals .row.main{
+    background: var(--ink);
+    color: var(--white);
+  }
+  .totals .row.main .num{
+    font-family:'Space Mono', monospace;
+    font-size:22px;
+    font-weight:700;
+    color:#f2d9a0;
+    white-space:nowrap;
+  }
+  .totals .row.sub{
+    background: var(--paper);
+    border-top: 1px solid var(--gold-line);
+  }
+  .totals .row.sub .num{
+    font-family:'Space Mono', monospace;
+    font-weight:700;
+    color: var(--gold-deep);
+    white-space:nowrap;
+  }
+  .totals .row p{ margin:0; font-size:14.5px; }
+
+  ul.notes{
+    margin: 4px 0 8px;
+    padding-right: 20px;
+    font-size:14.5px;
+    color:#4c4636;
+  }
+  ul.notes li{ margin-bottom:9px; }
+
+  .signoff{
+    padding: 28px 56px 44px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    border-top: 1px dashed var(--gold-line);
+    margin-top: 20px;
+  }
+  .signoff .name{
+    font-weight:900;
+    font-size:16px;
+    color:var(--ink);
+  }
+  .signoff .role{
+    font-size:13px;
+    color:var(--muted);
+  }
+  .signoff .stamp{
+    font-family:'Space Mono', monospace;
+    font-size:11px;
+    color:var(--gold-deep);
+    border:1px solid var(--gold);
+    padding:8px 14px;
+    letter-spacing:.08em;
+  }
+
+  @media (max-width: 640px){
+    .band, .content, .meta div, .signoff{ padding-left:22px; padding-right:22px; }
+    .meta{ grid-template-columns: 1fr; }
+    .meta div{ border-left:none; border-bottom:1px solid var(--gold-line); }
+    table{ font-size:12.5px; }
+    td.item{ width:auto; }
+    .band h1{ font-size:26px; }
+    .signoff{ flex-direction:column; gap:14px; align-items:flex-start; }
+  }
+
+  @media print{
+    body{ background:var(--paper); padding:0; }
+    .sheet{ box-shadow:none; border:none; max-width:100%; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="ribbon"><span>QUOTE</span></div>
+
+  <div class="band">
+    <p class="eyebrow">عرض سعر رسمي</p>
+    <h1>منصة بيع كورسات أونلاين</h1>
+    <p class="sub">مُعدّ خصيصًا للأستاذ بيشوي سليمان</p>
+  </div>
+
+  <div class="meta">
+    <div>
+      <p class="label">مقدَّم إلى</p>
+      <p class="value">الأستاذ بيشوي سليمان</p>
+    </div>
+    <div>
+      <p class="label">تاريخ العرض</p>
+      <p class="value">11 يوليو 2026</p>
+    </div>
+    <div>
+      <p class="label">صلاحية العرض</p>
+      <p class="value">15 يومًا من تاريخه</p>
+    </div>
+    <div>
+      <p class="label">مقدَّم من</p>
+      <p class="value">فادي فتحي ماهر</p>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <h2 class="section">نبذة عن المشروع</h2>
+    <p class="body-text">
+      بناء منصة إلكترونية متكاملة لبيع الكورسات التعليمية أونلاين للأستاذ بيشوي سليمان، تشمل تسجيل الطلاب والدفع الإلكتروني ولوحة تحكم لإدارة الكورسات، مع استضافة الفيديوهات وتشغيلها عبر خدمة Bunny Stream بجودة عالية وحماية كاملة للمحتوى من التحميل أو المشاركة غير المصرح بها.
+    </p>
+
+    <h2 class="section">تفاصيل التكلفة</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>البند</th>
+          <th>التفاصيل</th>
+          <th>السعر</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="item">تصميم وتطوير المنصة</td>
+          <td class="desc">بناء منصة بيع الكورسات كاملة: تسجيل وتسجيل دخول الطلاب، صفحات الكورسات، نظام الدفع، لوحة تحكم، ربط مع Bunny Stream لعرض الفيديوهات</td>
+          <td class="price">20,000 ج.م</td>
+        </tr>
+        <tr>
+          <td class="item">الاستضافة والدومين</td>
+          <td class="desc">اشتراك سنوي — يُجدَّد كل سنة بنفس القيمة تقريبًا حسب سعر الشركة المزوّدة وقت التجديد</td>
+          <td class="price">1,627.92 ج.م<br><span style="font-size:11px;color:var(--muted);font-weight:400;">سنويًا</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section">تكلفة استضافة الفيديوهات — Bunny Stream</h2>
+    <p class="body-text">
+      تعمل Bunny Stream بنظام الدفع حسب الاستخدام الفعلي فقط (Pay as you go)، بدون أي رسوم ترميز أو رسوم أمان، وبدون اشتراك ثابت. الأرقام التالية توضيحية لتقدير التكلفة التقريبية:
+    </p>
+    <table class="bunny-table">
+      <thead>
+        <tr>
+          <th>الخدمة</th>
+          <th>لكل</th>
+          <th>السعر بالدولار</th>
+          <th>تقريبًا بالجنيه *</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="item">تخزين الفيديوهات (Storage)</td>
+          <td class="center">50 GB مساحة تخزين</td>
+          <td class="price">$ 0.50</td>
+          <td class="price">~ 25 ج.م / شهريًا</td>
+        </tr>
+        <tr>
+          <td class="item">بث ومشاهدة الفيديوهات (CDN)</td>
+          <td class="center">50 GB مشاهدة</td>
+          <td class="price">$ 0.25</td>
+          <td class="price">~ 12.5 ج.م / شهريًا</td>
+        </tr>
+        <tr>
+          <td class="item">الترميز (Encoding) + المشغّل</td>
+          <td class="center">—</td>
+          <td class="price free">$ 0.00</td>
+          <td class="price free">مجانًا</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note-star">
+      * السعر التقريبي بالجنيه محسوب على سعر صرف الدولار الحالي (~50 ج.م)، وهو قابل للتغيّر يوميًا حسب سعر السوق وقت الدفع الفعلي لشركة Bunny.
+    </p>
+    <div class="example-box">
+      مثال: كورس فيديو بحجم 500 جيجا و1000 مشاهدة شهريًا → التكلفة التقريبية حوالي 250 ج.م تخزين + 125 ج.م مشاهدة = <strong>~375 ج.م شهريًا فقط</strong>، وتزيد أو تقل حسب حجم المحتوى وعدد الطلاب الفعلي.
+    </div>
+
+    <h2 class="section">إجمالي التكلفة</h2>
+    <div class="totals">
+      <div class="row main">
+        <p>إجمالي التكلفة الثابتة (تطوير المنصة + استضافة وموقع سنة كاملة)</p>
+        <p class="num">21,627.92 ج.م</p>
+      </div>
+      <div class="row sub">
+        <p>تكلفة Bunny Stream (تخزين + مشاهدة الفيديوهات) — تُدفع شهريًا لشركة Bunny مباشرة حسب حجم الفيديوهات وعدد المشاهدات الفعلي</p>
+        <p class="num">حسب الاستخدام</p>
+      </div>
+    </div>
+
+    <h2 class="section">ملاحظات</h2>
+    <ul class="notes">
+      <li>سعر الاستضافة والدومين يُجدَّد سنويًا، وقد يتغيّر بسيط حسب سعر الشركة المزوّدة وقت التجديد.</li>
+      <li>تكلفة Bunny Stream متغيرة بالكامل حسب الاستخدام الفعلي، وتُدفع مباشرة لحساب Bunny الخاص بالمنصة شهريًا.</li>
+      <li>أجر التطوير (20,000 ج.م) يُدفع دفعة مقدمة عند البدء والباقي عند التسليم، حسب الاتفاق.</li>
+      <li>العرض غير شامل أي تعديلات أو إضافات خارج النطاق المتفق عليه بعد التسليم.</li>
+    </ul>
+
+  </div>
+
+  <div class="signoff">
+    <div>
+      <p class="name">فادي فتحي ماهر</p>
+      <p class="role">Frontend &amp; WordPress Developer — fady-maher.vercel.app</p>
+    </div>
+    <div class="stamp">عرض سعر — 2026</div>
+  </div>
+</div>
+
+</body>
+</html>
