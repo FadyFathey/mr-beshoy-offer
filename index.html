@@ -27,7 +27,17 @@
     color:var(--ink);
     padding: 48px 16px;
     line-height:1.75;
+    direction: rtl;
+    text-align: right;
   }
+
+  table{ direction: rtl; }
+  thead th{ text-align:center; }
+  td.price, td.center{ text-align:center; }
+  td.item, td.desc{ text-align:right; }
+  .totals .row{ direction:rtl; }
+  .meta{ direction:rtl; }
+  .signoff{ direction:rtl; }
 
   .sheet{
     max-width: 900px;
@@ -101,9 +111,9 @@
   }
   .meta div{
     padding: 18px 56px;
-    border-left: 1px solid var(--gold-line);
+    border-right: 1px solid var(--gold-line);
   }
-  .meta div:last-child{border-left:none;}
+  .meta div:first-child{border-right:none;}
   .meta .label{
     font-size:12px;
     color:var(--muted);
